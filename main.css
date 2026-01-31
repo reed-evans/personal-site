@@ -1,0 +1,274 @@
+@font-face {
+  font-family: "FraktionMono";
+  src: url("./assets/fonts/PPFraktionMono-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "FraktionSans";
+  src: url("./assets/fonts/PPFraktionSans-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ── Fluid Typography ────────────────────────────────────────────── */
+/* Root font-size is vw-based. Everything in rem scales with viewport. */
+
+html {
+  font-size: clamp(16px, 1.4vw, 22px);
+  height: 100%;
+}
+
+body {
+  font-family: "FraktionMono", monospace;
+  font-size: 0.8rem;
+  font-feature-settings: "zero" 1;
+  background-color: #F8F6F2;
+  margin: 0;
+  padding: 0;
+  background-image: url("assets/atrium_seamless_edges_blurred.png");
+  /* Using a percentage will make the size dependent on viewport size, so it will resize with the window */
+  background-size: 1365px 2048px;
+  height: 100%;
+  width: 100%;
+}
+
+/* ── Nav ─────────────────────────────────────────────────────────── */
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+.nav_bar {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+}
+
+.nav_left,
+.nav_middle,
+.nav_right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav_left {
+  color: #8A8A8A;
+}
+
+.nav_middle {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.nav_text,
+.nav_datetime {
+  font-size: 0.8rem;
+}
+
+.nav a {
+  font-size: 0.8rem;
+  text-decoration: none;
+  color: #8A8A8A;
+  transition: color 0.2s ease;
+}
+
+/* Color change handled by text effect now */
+/* .nav a:hover {
+  color: #000;
+} */
+
+.icon-external {
+  display: inline-flex;
+  align-items: center;
+  width: 0.6em;
+  height: 0.6em;
+  margin-left: 0.25em;
+  color: #000;
+}
+
+.icon-external svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Nav Blur (progressive backdrop blur) ────────────────────────── */
+
+.nav_blur {
+  position: absolute;
+  z-index: 5;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 280%;
+  transform-origin: left top;
+  pointer-events: none;
+  transform: translateZ(0) translateY(-30%);
+}
+
+.nav_blur>div {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.nav_blur>div:nth-of-type(1) {
+  z-index: 2;
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
+  mask: linear-gradient(to bottom,
+      rgb(255 255 255) 0%,
+      rgb(255 255 255) 12.5%,
+      rgb(255 255 255 / 0) 25%);
+}
+
+.nav_blur>div:nth-of-type(2) {
+  z-index: 3;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  mask: linear-gradient(to bottom,
+      rgb(255 255 255) 0%,
+      rgb(255 255 255) 25%,
+      rgb(255 255 255 / 0) 50%);
+}
+
+.nav_blur>div:nth-of-type(3) {
+  z-index: 4;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  mask: linear-gradient(to bottom,
+      rgb(255 255 255) 0%,
+      rgb(255 255 255) 50%,
+      rgb(255 255 255 / 0) 75%);
+}
+
+.nav_blur>div:nth-of-type(4) {
+  z-index: 5;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  mask: linear-gradient(to bottom,
+      rgb(255 255 255) 0%,
+      rgb(255 255 255) 62.5%,
+      rgb(255 255 255 / 0) 87.5%);
+}
+
+/* ── Quote ───────────────────────────────────────────────────────── */
+
+.quote {
+  text-transform: uppercase;
+  color: red;
+  position: fixed;
+  bottom: 2rem;
+  right: 1.5em;
+  text-align: right;
+  mix-blend-mode: hard-light;
+
+}
+
+/* ── R43 ─────────────────────────────────────────────────────────── */
+
+.r43 {
+  text-transform: uppercase;
+  color: #F8F6F2;
+  mix-blend-mode: soft-light;
+  position: fixed;
+  bottom: 17.5rem;
+  left: 1rem;
+  transform: rotate(90deg);
+  transform-origin: bottom left;
+}
+
+/* ── Content ─────────────────────────────────────────────────────── */
+
+#content {
+  padding: 12rem 2rem 2rem;
+  font-optical-sizing: auto;
+}
+
+#content p {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  max-width: 62ch;
+  margin-left: 25%;
+  margin-right: 25%;
+  font-family: "FraktionSans", "sans";
+}
+
+#content h1 {
+  font-size: 2.0rem;
+  margin-left: 25%;
+  margin-right: 25%;
+  font-family: "FraktionSans", "sans";
+}
+
+#content h2 {
+  font-size: 2.0rem;
+}
+
+#content h3 {
+  font-size: 1.6rem;
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  gap: 1.5rem;
+}
+
+.project-card {
+  padding: 1.5rem;
+  border: 1px solid #ccc;
+  border-radius: 0.8rem;
+}
+
+/* ── Mobile Nav ─────────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .nav_left {
+    position: fixed;
+    top: 14.61rem;
+    left: 1rem;
+    transform: rotate(-90deg);
+    transform-origin: top left;
+  }
+
+  .nav_right {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    flex-direction: column;
+    align-items: flex-end;
+    row-gap: calc(0.4rem);
+  }
+
+  #content {
+    padding: 6rem 2rem 2rem;
+    font-optical-sizing: auto;
+  }
+
+  #content p {
+    max-width: 62ch;
+    margin-left: 15%;
+    margin-right: 15%;
+  }
+
+  #content h1 {
+    margin-left: 15%;
+    margin-right: 15%;
+  }
+}
