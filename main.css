@@ -176,8 +176,29 @@ body {
   bottom: 2rem;
   right: 1.5em;
   text-align: right;
-  mix-blend-mode: hard-light;
+  cursor: default;
+}
 
+.quote::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  right: 0;
+  margin-bottom: 0.4rem;
+  padding: 0.3rem 0.6rem;
+  white-space: nowrap;
+  font-size: 0.75rem;
+  text-transform: none;
+  color: #F8F6F2;
+  background: rgba(0, 0, 0, 0.75);
+  border-radius: 4px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.quote:hover::after {
+  opacity: 1;
 }
 
 /* ── R43 ─────────────────────────────────────────────────────────── */
