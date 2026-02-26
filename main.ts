@@ -308,7 +308,7 @@ class App {
   private links = [
     { label: "GITHUB", url: "https://github.com/reed-evans" },
     { label: "LINKEDIN", url: "https://www.linkedin.com/in/reedaevans/" },
-    { label: "READ.CV", url: "/rae-cv.pdf" }
+    { label: "READ.CV", url: "https://cv.reedevans.com" }
   ]
 
   constructor() {
