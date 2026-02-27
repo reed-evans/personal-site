@@ -18,7 +18,7 @@
 /* Root font-size is vw-based. Everything in rem scales with viewport. */
 
 html {
-  font-size: clamp(16px, 1.4vw, 22px);
+  font-size: clamp(16px, 1.4vw, 18px);
   height: 100%;
 }
 
@@ -29,9 +29,9 @@ body {
   background-color: #F8F6F2;
   margin: 0;
   padding: 0;
-  background-image: url("assets/atrium_seamless_edges_blurred.png");
+  background-image: url("assets/blurred.png");
   /* Using a percentage will make the size dependent on viewport size, so it will resize with the window */
-  background-size: 1365px 2048px;
+  background-size: 1527px 1720px;
   height: 100%;
   width: 100%;
 }
@@ -64,7 +64,8 @@ body {
 }
 
 .nav_left {
-  color: #8A8A8A;
+  /* color: #8A8A8A; */
+  color: #736e66;
 }
 
 .nav_middle {
@@ -81,7 +82,8 @@ body {
 .nav a {
   font-size: 0.8rem;
   text-decoration: none;
-  color: #8A8A8A;
+  /* color: #8A8A8A; */
+  color: #736e66;
   transition: color 0.2s ease;
 }
 
@@ -187,10 +189,10 @@ body {
   margin-bottom: 0.4rem;
   padding: 0.3rem 0.6rem;
   white-space: nowrap;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   text-transform: none;
   color: #F8F6F2;
-  background: rgba(0, 0, 0, 0.75);
+  background: rgba(73, 74, 74, 0.75);
   border-radius: 4px;
   opacity: 0;
   pointer-events: none;
@@ -327,6 +329,10 @@ body::before {
 /* ── Mobile Nav ─────────────────────────────────────────────────── */
 
 @media (max-width: 768px) {
+  body {
+    background-size: 1298px 1462px;
+  }
+
   .nav_left {
     position: fixed;
     top: 14.61rem;

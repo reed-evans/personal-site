@@ -19,7 +19,7 @@ interface ShineOptions {
 function textShine(el: HTMLElement | TextSplitter, options: ShineOptions = {}): TextSplitter {
   const {
     baseOpacity = "1.0",
-    shineOpacity = "0.0",
+    shineOpacity = "0.15",
     duration = 1200,
     staggerDelay = 30,
     interval = 4000,
@@ -390,7 +390,7 @@ class App {
         if (cancelSweep) cancelSweep();
         const els = this.querySelectorAll<HTMLElement>(".scramble-real")
         for (const el of els) {
-          el.style.color = "#8A8A8A";
+          el.style.color = "#736e66";
         }
       })
       navRight.appendChild(a);
@@ -400,8 +400,8 @@ class App {
     this.contentEl.id = "content";
     this.root.appendChild(this.contentEl);
 
-    const navSplitter = textShine(navText, { initialDelay: 500, duration: 1000 });
-    textShine(navSplitter, { initialDelay: 1300, duration: 600 });
+    const navSplitter = textShine(navText, { initialDelay: 500, duration: 800, interval: 8000, staggerDelay: 60 });
+    // textShine(navSplitter, { initialDelay: 1300, duration: 600 });
     this.initParallax();
   }
 
