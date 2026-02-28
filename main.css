@@ -29,7 +29,7 @@ body {
   background-color: #F8F6F2;
   margin: 0;
   padding: 0;
-  background-image: url("assets/blurred.png");
+  background-image: url("assets/atrium.png");
   /* Using a percentage will make the size dependent on viewport size, so it will resize with the window */
   background-size: 1527px 1720px;
   height: 100%;
