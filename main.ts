@@ -16,7 +16,10 @@ interface ShineOptions {
   initialDelay?: number;
 }
 
-function textShine(el: HTMLElement | TextSplitter, options: ShineOptions = {}): TextSplitter {
+function textShine(
+  el: HTMLElement | TextSplitter,
+  options: ShineOptions = {},
+): TextSplitter {
   const {
     baseOpacity = "1.0",
     shineOpacity = "0.15",
@@ -54,12 +57,12 @@ function textShine(el: HTMLElement | TextSplitter, options: ShineOptions = {}): 
 const SCRAMBLE_CHARS = "##·$%&/=€|()@+09*+]}{[";
 
 interface ScrambleOptions {
-  fakeCount?: number;        // number of fake chars per real char (default 2)
-  charStagger?: number;      // delay between each char in seconds (default 0.05)
-  fakeDuration?: number;     // how long each fake char is visible in seconds (default 0.16)
-  fakeStagger?: number;      // delay between fake chars within a single char (default 0.016)
-  revealDuration?: number;   // duration for the real char fade-in (default 0.3)
-  startDelay?: number;       // delay before animation starts in seconds (default 0)
+  fakeCount?: number; // number of fake chars per real char (default 2)
+  charStagger?: number; // delay between each char in seconds (default 0.05)
+  fakeDuration?: number; // how long each fake char is visible in seconds (default 0.16)
+  fakeStagger?: number; // delay between fake chars within a single char (default 0.016)
+  revealDuration?: number; // duration for the real char fade-in (default 0.3)
+  startDelay?: number; // delay before animation starts in seconds (default 0)
 }
 
 /**
@@ -76,10 +79,11 @@ function scramblePrepare(el: HTMLElement, fakeCount = 2): void {
     htmlEl.innerHTML = `<span class="scramble-real">${original}</span>`;
 
     for (let i = 0; i < fakeCount; i++) {
-      const rnd = SCRAMBLE_CHARS[Math.floor(Math.random() * SCRAMBLE_CHARS.length)];
+      const rnd =
+        SCRAMBLE_CHARS[Math.floor(Math.random() * SCRAMBLE_CHARS.length)];
       htmlEl.insertAdjacentHTML(
         "afterbegin",
-        `<span class="scramble-fake" style="display:none;position:absolute;left:0" aria-hidden="true">${rnd}</span>`
+        `<span class="scramble-fake" style="display:none;position:absolute;left:0" aria-hidden="true">${rnd}</span>`,
       );
     }
 
@@ -102,8 +106,9 @@ function scrambleReveal(el: HTMLElement, options: ScrambleOptions = {}): void {
   } = options;
 
   // Find char wrappers that contain our scramble spans
-  const chars = Array.from(el.querySelectorAll<HTMLElement>(".scramble-real"))
-    .map((real) => real.parentElement!);
+  const chars = Array.from(
+    el.querySelectorAll<HTMLElement>(".scramble-real"),
+  ).map((real) => real.parentElement!);
 
   // Hide everything initially, then reveal
   el.style.opacity = "1";
@@ -125,9 +130,12 @@ function scrambleReveal(el: HTMLElement, options: ScrambleOptions = {}): void {
         fake.style.opacity = "1";
       }, fakeDelay * 1000);
 
-      setTimeout(() => {
-        fake.style.display = "none";
-      }, (fakeDelay + fakeDuration) * 1000);
+      setTimeout(
+        () => {
+          fake.style.display = "none";
+        },
+        (fakeDelay + fakeDuration) * 1000,
+      );
     });
 
     // Fade in the real character
@@ -143,7 +151,12 @@ function scrambleReveal(el: HTMLElement, options: ScrambleOptions = {}): void {
  * Briefly shows fakes over each char in sequence, then restores.
  * Call scramblePrepare first.
  */
-function scrambleSweep(el: HTMLElement, options: ScrambleOptions = {}, newChars?: string[], transform: (e: HTMLElement) => void = (e) => { }): () => void {
+function scrambleSweep(
+  el: HTMLElement,
+  options: ScrambleOptions = {},
+  newChars?: string[],
+  transform: (e: HTMLElement) => void = (e) => {},
+): () => void {
   const {
     charStagger = 0.05,
     fakeDuration = 0.12,
@@ -169,7 +182,8 @@ function scrambleSweep(el: HTMLElement, options: ScrambleOptions = {}, newChars?
 
     // Re-randomize fake chars each sweep
     fakes.forEach((fake) => {
-      fake.textContent = SCRAMBLE_CHARS[Math.floor(Math.random() * SCRAMBLE_CHARS.length)];
+      fake.textContent =
+        SCRAMBLE_CHARS[Math.floor(Math.random() * SCRAMBLE_CHARS.length)];
       if (!transformCancelled) transform(fake);
     });
 
@@ -190,9 +204,12 @@ function scrambleSweep(el: HTMLElement, options: ScrambleOptions = {}, newChars?
         fake.style.opacity = "1";
       }, fakeDelay * 1000);
 
-      setTimeout(() => {
-        fake.style.display = "none";
-      }, (fakeDelay + fakeDuration) * 1000);
+      setTimeout(
+        () => {
+          fake.style.display = "none";
+        },
+        (fakeDelay + fakeDuration) * 1000,
+      );
     });
 
     // Restore real char
@@ -203,15 +220,18 @@ function scrambleSweep(el: HTMLElement, options: ScrambleOptions = {}, newChars?
     }, restoreDelay * 1000);
   });
 
-  return () => { transformCancelled = true; };
+  return () => {
+    transformCancelled = true;
+  };
 }
 
 /**
  * Returns the current text of each prepared char span.
  */
 function scrambleGetChars(el: HTMLElement): string[] {
-  return Array.from(el.querySelectorAll<HTMLElement>(".scramble-real"))
-    .map((real) => real.textContent || "");
+  return Array.from(el.querySelectorAll<HTMLElement>(".scramble-real")).map(
+    (real) => real.textContent || "",
+  );
 }
 
 // ── Page Class ──────────────────────────────────────────────────────
@@ -235,7 +255,9 @@ class Page {
       this.container.style.transition = "opacity 0.4s ease";
       void this.container.offsetHeight;
       this.container.style.opacity = "1";
-      this.container.addEventListener("transitionend", () => resolve(), { once: true });
+      this.container.addEventListener("transitionend", () => resolve(), {
+        once: true,
+      });
     });
   }
 
@@ -243,7 +265,9 @@ class Page {
     return new Promise((resolve) => {
       this.container.style.transition = "opacity 0.3s ease";
       this.container.style.opacity = "0";
-      this.container.addEventListener("transitionend", () => resolve(), { once: true });
+      this.container.addEventListener("transitionend", () => resolve(), {
+        once: true,
+      });
     });
   }
 }
@@ -273,7 +297,13 @@ class Router {
       if (!anchor) return;
 
       const href = anchor.getAttribute("href");
-      if (!href || href.startsWith("http") || href.startsWith("#") || href.endsWith(".pdf")) return;
+      if (
+        !href ||
+        href.startsWith("http") ||
+        href.startsWith("#") ||
+        href.endsWith(".pdf")
+      )
+        return;
 
       e.preventDefault();
       this.push(href);
@@ -305,11 +335,12 @@ class App {
     { path: "/work", label: "WORK", html: workContent },
   ];
 
-  private links = [
+  private links: { label: string; url: string; color?: string }[] = [
     { label: "GITHUB", url: "https://github.com/reed-evans" },
-    { label: "LINKEDIN", url: "https://www.linkedin.com/in/reedaevans/" },
-    { label: "READ.CV", url: "https://cv.reedevans.com" }
-  ]
+    { label: "LINKEDIN", url: "https://www.linkedin.com/in/reedxevans/" },
+    { label: "READ.CV", url: "https://cv.reedevans.com" },
+    { label: "SYNTH", url: "https://synth.reedevans.com", color: "red" },
+  ];
 
   constructor() {
     const el = document.getElementById("app");
@@ -381,18 +412,27 @@ class App {
       a.href = link.url;
       a.target = "_blank";
       a.innerHTML = `${link.label}<i class="icon-external">${arrowUpRight}</i>`;
+      const restColor = link.color ?? "#736e66";
+      a.style.color = restColor;
       scramblePrepare(a);
       let cancelSweep: (() => void) | null = null;
       a.addEventListener("mouseenter", function () {
-        cancelSweep = scrambleSweep(this, { charStagger: 0.03, fakeDuration: 0.1 }, undefined, function (e: HTMLElement) { e.style.color = "black" });
+        cancelSweep = scrambleSweep(
+          this,
+          { charStagger: 0.03, fakeDuration: 0.1 },
+          undefined,
+          function (e: HTMLElement) {
+            e.style.color = "black";
+          },
+        );
       });
       a.addEventListener("mouseleave", function () {
         if (cancelSweep) cancelSweep();
-        const els = this.querySelectorAll<HTMLElement>(".scramble-real")
+        const els = this.querySelectorAll<HTMLElement>(".scramble-real");
         for (const el of els) {
-          el.style.color = "#736e66";
+          el.style.color = restColor;
         }
-      })
+      });
       navRight.appendChild(a);
     }
 
@@ -400,7 +440,12 @@ class App {
     this.contentEl.id = "content";
     this.root.appendChild(this.contentEl);
 
-    const navSplitter = textShine(navText, { initialDelay: 500, duration: 800, interval: 8000, staggerDelay: 60 });
+    const navSplitter = textShine(navText, {
+      initialDelay: 500,
+      duration: 800,
+      interval: 8000,
+      staggerDelay: 60,
+    });
     // textShine(navSplitter, { initialDelay: 1300, duration: 600 });
     this.initParallax();
   }
@@ -413,7 +458,7 @@ class App {
     let currentY = 0;
 
     document.addEventListener("mousemove", (e) => {
-      targetX = 50 + ((e.clientX / window.innerWidth) - 0.5) * maxShift * 2;
+      targetX = 50 + (e.clientX / window.innerWidth - 0.5) * maxShift * 2;
       targetY = 0 + (e.clientY / window.innerHeight) * maxShift;
     });
 
@@ -431,10 +476,23 @@ class App {
 
   private getESTDateTime(): string {
     const now = new Date();
-    const day = now.toLocaleString("en-US", { timeZone: "America/New_York", day: "2-digit" });
-    const month = now.toLocaleString("en-US", { timeZone: "America/New_York", month: "short" }).toUpperCase();
-    const year = now.toLocaleString("en-US", { timeZone: "America/New_York", year: "numeric" });
-    const time = now.toLocaleString("en-US", { timeZone: "America/New_York", hour: "2-digit", minute: "2-digit", hour12: false });
+    const day = now.toLocaleString("en-US", {
+      timeZone: "America/New_York",
+      day: "2-digit",
+    });
+    const month = now
+      .toLocaleString("en-US", { timeZone: "America/New_York", month: "short" })
+      .toUpperCase();
+    const year = now.toLocaleString("en-US", {
+      timeZone: "America/New_York",
+      year: "numeric",
+    });
+    const time = now.toLocaleString("en-US", {
+      timeZone: "America/New_York",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+    });
     return `${day}_${month}_${year} ${time}`;
   }
 
